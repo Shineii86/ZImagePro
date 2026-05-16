@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.0.4] - 2026-05-16
+
+### Added
+- Content Safety Notice markdown cell in notebook (between Initialize and Generate steps)
+- Warning about unfiltered model, prohibited uses, and HuggingFace content policy
+
+### Changed
+- `GUIDE.md` — complete rewrite matching ZImageLora style: beginner explanations, expandable FAQ, detailed step walkthroughs, all settings tables, resolution guide, sampler guide, prompt writing tips, file locations, troubleshooting with causes/fixes, content safety notice, footer with badges
+
+---
+
 ## [1.0.3] - 2026-05-16
 
 ### Fixed
