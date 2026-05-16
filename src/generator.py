@@ -21,7 +21,6 @@ import os
 import re
 import uuid
 import gc
-import random
 
 import torch
 import numpy as np
@@ -139,7 +138,7 @@ def generate_image(
         save_dir = os.path.join(os.path.dirname(WORKSPACE), "results")
     os.makedirs(save_dir, exist_ok=True)
 
-    gen_seed = random.randint(0, 2**63 - 1) if seed == -1 else seed
+    gen_seed = torch.randint(0, 2**63 - 1, (1,)).item() if seed == -1 else seed
 
     # ─── Flush VRAM ───
     gc.collect()
