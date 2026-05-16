@@ -1,0 +1,14 @@
+# Core ML dependencies
+torch
+torchvision
+torchaudio
+
+# ComfyUI
+xformers!=0.0.18
+
+# Download utilities
+gdown
+aria2
+
+# Notebook
+IPython
