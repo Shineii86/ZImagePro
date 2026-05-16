@@ -84,18 +84,19 @@ Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend 
 | Feature | Description |
 |---------|-------------|
 | ⚡ **FP8 Optimized** | Half the VRAM, full quality — runs on free T4 Colab |
-| 💾 **Smart Cache** | Models cached after first run — instant subsequent generations |
+| 💾 **Smart Cache** | Models cached in Google Drive — instant on restart |
 | 🎯 **One-Click** | Zero configuration — just open and run |
 | 🔋 **GPU Ready** | Free Google Colab T4 is sufficient |
 | ⚙️ **ComfyUI Backend** | Node-based pipeline engine — battle-tested and extensible |
 | 🌐 **aria2c Downloader** | 16-connection parallel downloads for fast model fetching |
+| 🧹 **Auto-Cleanup** | Clear old outputs and Drive cache to free disk space |
 | 🔧 **Modular Source** | Clean `src/` package — easy to extend and maintain |
 
 ### 📦 What's Included
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| **Notebook** | `notebook/ZImagePro.ipynb` | 3-cell Colab notebook — the main entry point |
+| **Notebook** | `notebook/ZImagePro.ipynb` | 4-cell Colab notebook — the main entry point |
 | **Config** | `src/config.py` | Constants, defaults, model URLs, resolution presets |
 | **Downloader** | `src/downloader.py` | aria2c/GDrive/Civitai asset fetcher |
 | **Generator** | `src/generator.py` | In-process ComfyUI node loading + image generation |
@@ -129,7 +130,7 @@ ZImagePro/
 │   └── PULL_REQUEST_TEMPLATE.md # PR checklist
 │
 ├── notebook/
-│   └── ZImagePro.ipynb       # Main Colab notebook (3 code cells + 3 markdown)
+│   └── ZImagePro.ipynb       # Main Colab notebook (4 code cells + 3 markdown)
 │
 └── src/
     ├── __init__.py            # Package marker + shared UI logger + run_quiet helper
@@ -232,9 +233,10 @@ flowchart TD
 
 | Step | Cell | What Happens | Duration |
 |:----:|------|-------------|----------|
-| 🛠️ | **1. Initialize** | Clone ZImagePro repo, clone ComfyUI, install Python deps, install aria2c, download all models | ~3–5 min |
+| 🛠️ | **1. Initialize** | Clone ZImagePro repo, clone ComfyUI, install Python deps, install aria2c, mount Drive, check cache, download models | ~3–5 min (first) / ~30s (cached) |
 | 🚀 | **2. Load & Generate** | Load FP8 weights into VRAM, configure prompt & settings, generate image | ~30 sec |
 | 💾 | **3. Export** | Zip all output PNGs and trigger browser download | ~5 sec |
+| 🧹 | **4. Cache & Cleanup** | Clear Drive cache, clean old outputs, free disk space | ~5 sec |
 
 ### 📓 Kaggle Notebook
 
@@ -261,22 +263,34 @@ https://raw.githubusercontent.com/Shineii86/ZImagePro/main/notebook/ZImagePro-Ka
 # Clones ComfyUI (the pipeline engine)
 # Installs: xformers, torch, comfyui deps
 # Installs aria2c system package
+# Mounts Google Drive for persistent model cache
+# Checks cache status (hit/miss per model with sizes)
 # Downloads: UNet FP8 model, text encoder, VAE (via aria2c 16-parallel)
+# Saves to Drive cache after first download
 ```
 
 **Cell 2 — Load & Generate**
 ```python
 # Loads UNet, CLIP, VAE models into VRAM via src.generator.load_models()
+# Reports VRAM usage (allocated / total)
 # Encodes positive/negative prompts via CLIP
 # Creates empty latent, runs KSampler denoising
 # Decodes through VAE, saves PNG to /content/results
-# Displays image inline in notebook
+# Displays image inline with generation timing
 ```
 
 **Cell 3 — Export**
 ```python
+# Shows output count and total size
 # Zips all .png files from /content/results
 # Triggers browser download via google.colab.files API
+```
+
+**Cell 4 — Cache & Cleanup**
+```python
+# Shows disk space, output stats, Drive cache status
+# Optional: Clear Drive cache (reclaim ~7 GB)
+# Optional: Clean old outputs (with keep-latest option)
 ```
 
 ---
@@ -360,29 +374,41 @@ sequenceDiagram
     participant U as 👤 User
     participant NB as 📓 Notebook
     participant SRC as 📦 src/ Package
+    participant DRV as 💾 Drive Cache
     participant CUI as ⚙️ ComfyUI
     participant GPU as 🖥️ T4 GPU
 
     U->>NB: Run Cell 1 (Initialize)
     NB->>NB: Clone ZImagePro + ComfyUI repos
     NB->>NB: Install deps + aria2c
+    NB->>DRV: Mount Google Drive
     NB->>SRC: Import config, downloader modules
-    SRC->>SRC: aria2c 16-parallel download (UNet + CLIP + VAE)
-    SRC-->>NB: ✅ Models saved to /content/ComfyUI/models/
+    SRC->>DRV: Check cache status (hit/miss per model)
+    alt Cache Hit
+        DRV-->>SRC: Models found in Drive (~30s copy)
+    else Cache Miss
+        SRC->>SRC: aria2c 16-parallel download (~5 min)
+        SRC->>DRV: Save models to Drive cache
+    end
+    SRC-->>NB: ✅ Models ready
 
     U->>NB: Run Cell 2 (Load & Generate)
     NB->>SRC: load_models()
     SRC->>CUI: Load UNet + CLIP + VAE into VRAM
-    CUI-->>SRC: Models ready
+    CUI-->>SRC: Models ready + VRAM stats
     NB->>SRC: generate_image(params)
     SRC->>CUI: CLIP encode + KSampler + VAE decode
     GPU-->>CUI: Pixel image
-    SRC-->>NB: PIL Image + save path
+    SRC-->>NB: PIL Image + save path + timing
     NB->>NB: Display inline image
 
     U->>NB: Run Cell 3 (Export)
     NB->>SRC: zip_outputs() + download_zip()
     SRC-->>U: 📥 Z_Image_Pro_Artworks.zip
+
+    U->>NB: Run Cell 4 (Cleanup) [optional]
+    NB->>DRV: Clear cache / Clean old outputs
+    NB-->>U: ✅ Disk space freed
 ```
 
 ---
@@ -438,7 +464,7 @@ sequenceDiagram
 | VAE | ~300 MB | Yes |
 | Output (per image) | ~2–5 MB | No |
 
-> 💡 **First run** takes ~5–8 minutes for downloads. Subsequent runs in the same Colab session are much faster thanks to smart caching.
+> 💡 **First run** takes ~5–8 minutes for downloads. Models are automatically cached to Google Drive — subsequent sessions skip the download entirely (~30s copy from Drive).
 
 ---
 
@@ -458,14 +484,16 @@ print(RESOLUTIONS["16:9"])     # (1280, 720)
 ```
 
 ### `src/downloader.py`
-Asset fetching with aria2c acceleration.
+Asset fetching with aria2c acceleration and Google Drive caching.
 
 ```python
-from src.downloader import ensure_aria2, download_file, process_downloads
+from src.downloader import ensure_aria2, mount_drive, download_file, get_cache_status, clear_cache
 
 ensure_aria2()                                    # Install aria2c
-download_file("https://...", "/content/models")   # Single file
-process_downloads("url1\nurl2", "/content/models") # Batch
+mount_drive()                                     # Mount Drive for cache
+download_file("https://...", "/content/models")   # Cache-first download
+status = get_cache_status([url1, url2])           # Check what's cached
+clear_cache()                                     # Reclaim ~7 GB
 ```
 
 ### `src/generator.py`
@@ -479,14 +507,16 @@ img, path = generate_image(nodes, unet, clip, vae, prompt="a cat")
 ```
 
 ### `src/exporter.py`
-Output packaging and download.
+Output packaging, stats, and cleanup.
 
 ```python
-from src.exporter import zip_outputs, download_zip
+from src.exporter import zip_outputs, download_zip, cleanup_outputs, get_output_stats
 
-zip_path = zip_outputs()
+stats = get_output_stats()    # Count + size of outputs
+zip_path = zip_outputs()      # Zip all PNGs
 if zip_path:
-    download_zip(zip_path)
+    download_zip(zip_path)    # Browser download
+cleanup_outputs(keep_latest=5)  # Keep last 5, delete rest
 ```
 
 ---
@@ -763,6 +793,9 @@ This project is licensed under **MIT**. You can use, modify, and distribute it f
 | `Colab disconnects` | Idle timeout or session limit | Stay active, or upgrade to Colab Pro |
 | `ImportError: gdown` | gdown not installed | Run `!pip install gdown` in a cell |
 | `FP8 not loading` | GPU doesn't support FP8 | Try a different Colab runtime (T4/A100) |
+| `Low disk space` | Too many outputs or cache | Run Cell 4 (🧹 Cache & Cleanup) |
+| `Cache not working` | Drive not mounted | Check Cell 1 output for Drive mount status |
+| `Slow first run` | Normal — downloads ~7 GB | Models cache to Drive; next run is ~30s |
 
 ---
 

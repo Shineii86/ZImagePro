@@ -15,6 +15,7 @@
 | [🔧 Step 1 — Initialize](#-step-1--initialize) | Setting up the environment |
 | [🚀 Step 2 — Load Engine & Generate](#-step-2--load-engine--generate) | Loading models and creating images |
 | [💾 Step 3 — Export](#-step-3--export) | Downloading your results |
+| [🧹 Step 4 — Cache & Cleanup](#-step-4--cache--cleanup) | Managing Drive cache and freeing disk space |
 | [🎛️ All Settings Explained](#️-all-settings-explained) | Every parameter in detail |
 | [🖼️ Resolution Guide](#️-resolution-guide) | Choosing the right image size |
 | [🎲 Sampler & Scheduler Guide](#-sampler--scheduler-guide) | What these do and which to pick |
@@ -38,16 +39,17 @@ You type a description → AI reads it → AI generates an image → You downloa
 **What makes it special:**
 - **FP8 optimized** — Uses 8-bit floating point quantization, cutting VRAM usage nearly in half while keeping full quality
 - **Free GPU** — It runs on Google's computers (via Google Colab), so you don't need an expensive graphics card
-- **Smart cache** — Models are downloaded once and cached, so subsequent runs are fast
+- **Smart cache** — Models are downloaded once and cached in Google Drive. Subsequent sessions load from Drive in ~30 seconds instead of re-downloading ~7 GB
 - **No installation** — Everything runs in your web browser. Just open the notebook and click play
 
 ### What Is a "Notebook"?
 
 A **notebook** (also called a Jupyter notebook or Colab notebook) is an interactive document that contains code. Think of it like a step-by-step recipe:
 
-1. You run **Cell 1** → it sets everything up and downloads models
+1. You run **Cell 1** → it sets everything up, mounts Drive, and downloads models
 2. You run **Cell 2** → it loads the AI and generates your image
 3. You run **Cell 3** → it downloads the result
+4. You run **Cell 4** (optional) → manage cache and free disk space
 
 Each cell is a box of code. You click the **▶ Play button** on each cell to run it, one at a time, in order.
 
@@ -161,7 +163,7 @@ This cell prepares everything behind the scenes:
 > ⚠️ **If you see a warning about restarting the runtime:**
 > Click "Cancel" — you don't need to restart. The notebook will work fine.
 
-> 💡 **Second run is instant!** Models are cached in Colab's storage. If you run Cell 1 again (same session), it detects existing files and skips downloads.
+> 💡 **Second run is instant!** Models are cached in Google Drive. If you run Cell 1 again in a new session, it copies models from Drive (~30s) instead of re-downloading (~5 min). First-time setup takes longer because it downloads ~7 GB of models.
 
 ---
 
@@ -256,6 +258,34 @@ All generated images are saved in:
 ```
 
 You can browse them anytime using Colab's file browser (click the 📁 folder icon in the left sidebar).
+
+---
+
+## 🧹 Step 4 — Cache & Cleanup
+
+### What This Step Does
+
+This optional cell helps you manage disk space and the Google Drive model cache. Free-tier Colab has limited disk space, so this is useful when you're running low.
+
+### How to Run It
+
+1. **Click the ▶ Play button** on the "🧹 4. Cache & Cleanup" cell
+2. **Review the status** — it shows disk space, output count, and cache size
+3. **Optionally check the boxes:**
+   - `clear_drive_cache` — Deletes all cached models from Drive (reclaims ~7 GB)
+   - `clear_old_outputs` — Deletes generated images from `/content/results`
+   - `keep_latest_images` — Set to N to keep your N most recent images
+
+### When to Use It
+
+| Situation | What to Do |
+|-----------|-----------|
+| "Low disk space" warning | Run Cell 4, check `clear_old_outputs` |
+| Want to free Drive space | Check `clear_drive_cache` (next run re-downloads models) |
+| Starting fresh | Check both boxes for a clean slate |
+| Everything works fine | Skip this cell entirely |
+
+> 💡 **Tip:** The Drive cache (~7 GB) persists across sessions. Only clear it if you need the space back — otherwise you'll have to re-download models next time.
 
 ---
 
@@ -414,6 +444,7 @@ oversaturated, cartoon, text, watermark
 | **VAE** | `/content/ComfyUI/models/vae/` | 📁 File browser → ComfyUI → models → vae |
 | **Generated images** | `/content/results/` | 📁 File browser → content → results |
 | **Downloaded zip** | `/content/Z_Image_Pro_Artworks.zip` | 📁 File browser → content |
+| **Drive model cache** | `/content/drive/MyDrive/ZImagePro/models/` | 📁 File browser → Drive → MyDrive → ZImagePro → models |
 
 ### Opening the File Browser
 
@@ -442,7 +473,7 @@ Yes, Google Colab's free tier includes a T4 GPU. There are limits (session time,
 <details>
 <summary><b>How long does it take to generate one image?</b></summary>
 
-After the initial setup (first run only: ~8 minutes for downloads), each image takes about **20–30 seconds** to generate (including model loading).
+After the initial setup (first run only: ~8 minutes for downloads), each image takes about **20–30 seconds** to generate (including model loading). On subsequent sessions, models load from Drive cache (~30s) instead of downloading.
 </details>
 
 <details>
@@ -454,7 +485,7 @@ The ZImagePro project is MIT licensed. However, check the license of the specifi
 <details>
 <summary><b>What happens if Colab disconnects?</b></summary>
 
-Your session ends and all files are deleted. You'll need to re-run all 3 cells from the beginning. That's why it's important to download your images (Step 3) after each generation session.
+Your session ends and temporary files are deleted. However, **models cached in Google Drive persist** — just re-run Cell 1 and it copies from Drive (~30s) instead of re-downloading (~5 min). Always download your generated images using Step 3 before closing!
 </details>
 
 <details>

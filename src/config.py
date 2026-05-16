@@ -32,6 +32,18 @@ WORKSPACE = "/content/ComfyUI"
 # On subsequent runs: copies from Drive to ComfyUI (skips download).
 DRIVE_CACHE_DIR = "/content/drive/MyDrive/ZImagePro/models"
 
+# ---- FEATURE: Cache versioning ----
+# Bump this when model URLs or filenames change. Old cached models
+# with a different version are treated as stale and re-downloaded.
+CACHE_VERSION = "1"
+
+# ---- FEATURE: Total model download size (approximate, for user messaging) ----
+TOTAL_MODEL_SIZE_GB = 7.0
+
+# ---- FEATURE: Disk space thresholds for free-tier safety ----
+DISK_WARN_GB = 2.0   # Warn when less than this free
+DISK_MIN_GB  = 1.0   # Refuse to download when less than this free
+
 # ══════════════════════════════════════════════════════════════
 # MODEL URLS
 # ══════════════════════════════════════════════════════════════
@@ -114,7 +126,9 @@ SCHEDULERS = [
 # ══════════════════════════════════════════════════════════════
 
 __all__ = [
-    "WORKSPACE", "DRIVE_CACHE_DIR", "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
+    "WORKSPACE", "DRIVE_CACHE_DIR", "CACHE_VERSION", "TOTAL_MODEL_SIZE_GB",
+    "DISK_WARN_GB", "DISK_MIN_GB",
+    "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
     "MODEL_DIRS", "DEFAULTS", "RESOLUTIONS", "SAMPLERS", "SCHEDULERS",
 ]
 

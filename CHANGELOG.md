@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.3.1] - 2026-05-16
+
+### Added
+- `src/downloader.py` — `get_cache_status()`: per-model cache hit/miss reporting with file sizes
+- `src/downloader.py` — `clear_cache()`: one-call Drive cache wipe with freed-space report
+- `src/downloader.py` — `check_disk_space()`: pre-download disk space validation with warn/refuse thresholds
+- `src/downloader.py` — Cache versioning: `CACHE_VERSION` stamp file in Drive cache, auto-invalidates stale cache when model URLs change
+- `src/downloader.py` — `_is_cache_stale()`, `_read_cache_version()`, `_write_cache_version()` for version management
+- `src/config.py` — `CACHE_VERSION`, `TOTAL_MODEL_SIZE_GB`, `DISK_WARN_GB`, `DISK_MIN_GB` constants
+- `src/exporter.py` — `get_output_stats()`: count + size of generated images
+- `src/exporter.py` — `cleanup_outputs()`: auto-cleanup old outputs with keep-latest option
+- `src/generator.py` — VRAM usage report after model loading (allocated / total)
+- `notebook/ZImagePro.ipynb` — Cell 1: disk space check, cache status with per-model hit/miss, elapsed time
+- `notebook/ZImagePro.ipynb` — Cell 2: generation timing (elapsed seconds)
+- `notebook/ZImagePro.ipynb` — Cell 3: output count + size before zipping
+- `notebook/ZImagePro.ipynb` — Cell 4 (🧹 Cache & Cleanup): clear Drive cache, clean old outputs, keep-latest option
+
+### Changed
+- `src/downloader.py` — `download_file()` now checks disk space before downloading, reports file sizes in cache hit/miss messages, warns on stale cache
+- `src/exporter.py` — `zip_outputs()` now reports image count and total size in the log message
+- `src/__init__.py` — version bump to 1.3.1
+
+---
+
 ## [1.3.0] - 2026-05-16
 
 ### Added

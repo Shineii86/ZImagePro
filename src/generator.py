@@ -107,6 +107,14 @@ def load_models(unet_filename="z-image-turbo-fp8-e4m3fn.safetensors"):
         vae_model  = nodes["vae"].load_vae("ae.safetensors")[0]
 
     log.success("Engine Online. Ready to Generate.")
+
+    # ─── VRAM Report ───
+    if torch.cuda.is_available():
+        allocated = torch.cuda.memory_allocated() / (1024 ** 3)
+        reserved  = torch.cuda.memory_reserved() / (1024 ** 3)
+        total     = torch.cuda.get_device_properties(0).total_mem / (1024 ** 3)
+        log.info(f"   VRAM: {allocated:.1f} GB allocated / {total:.1f} GB total")
+
     return nodes, unet_model, clip_model, vae_model
 
 
