@@ -524,6 +524,74 @@ cleanup_outputs(keep_latest=5)  # Keep last 5, delete rest
 
 ## 🖼️ Preview
 
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🌆 Cyberpunk City
+<img src="assets/PROMPT1.png" width="100%">
+
+</td>
+<td width="50%" valign="top">
+
+### 🧝‍♀️ Fantasy Portrait
+<img src="assets/PROMPT2.png" width="100%">
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🏔️ Landscape
+<img src="assets/PROMPT3.png" width="100%">
+
+</td>
+<td width="50%" valign="top">
+
+### 🎌 Anime Style
+<img src="assets/PROMPT4.png" width="100%">
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🐉 Fantasy Creature
+<img src="assets/PROMPT5.png" width="100%">
+
+</td>
+<td width="50%" valign="top">
+
+### 🖼️ Oil Painting
+<img src="assets/PROMPT6.png" width="100%">
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🚀 Sci-Fi Concept
+<img src="assets/PROMPT7.png" width="100%">
+
+</td>
+<td width="50%" valign="top">
+
+### 🐱 Cute & Cozy
+<img src="assets/PROMPT8.png" width="100%">
+
+</td>
+</tr>
+</table>
+
 <div align="center">
 
 > *Run these prompts in the notebook to generate your own showcase images!*
