@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.0.3] - 2026-05-16
+
+### Fixed
+- `src/config.py` — added missing `__all__` export declaration
+- `src/__init__.py` — added missing `__all__` export declaration
+- `GUIDE.md` — added "Creator Studio" cell reference (matches notebook Cell 3 name)
+- Removed stray `__pycache__` artifacts
+
+---
+
 ## [1.0.2] - 2026-05-16
 
 ### Added

@@ -100,7 +100,7 @@ You run cells one at a time by clicking the ▶️ play button next to each cell
 ✅ Environment Ready! Please load the engine below.
 ```
 
-### Cell 2 — Load Engine & Generate 🚀
+### Cell 2 — Load Engine 🚀
 
 **What it does:**
 - Loads all 3 models into GPU VRAM
@@ -117,7 +117,22 @@ You run cells one at a time by clicking the ▶️ play button next to each cell
 - `guidance_scale` — how closely to follow the prompt
 - `seed` — for reproducible results
 
-### Cell 3 — Export 💾
+### Cell 3 — Creator Studio 🎨
+
+**What it does:**
+
+The Creator Studio cell is where you configure your prompt and generation settings, then run the image generation. It uses the `generate_image()` function from `src/generator.py`.
+
+**Settings you can change:**
+- `positive_prompt` — describe what you want to see
+- `negative_prompt` — what to avoid
+- `aspect_ratio` — image dimensions (1:1, 16:9, 9:16, 4:3, 21:9)
+- `steps` — denoising iterations (10–50, default 20)
+- `guidance_scale` — prompt adherence (1.0–10.0, default 1)
+- `seed` — RNG seed (-1 = random)
+- `auto_download` — auto-download after generation
+
+### Cell 4 — Export 💾
 
 **What it does:**
 - Zips all generated PNG images

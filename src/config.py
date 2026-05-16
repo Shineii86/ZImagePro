@@ -101,4 +101,13 @@ SCHEDULERS = [
     "simple", "ddim_uniform", "beta",
 ]
 
+# ══════════════════════════════════════════════════════════════
+# EXPORTS
+# ══════════════════════════════════════════════════════════════
+
+__all__ = [
+    "WORKSPACE", "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
+    "MODEL_DIRS", "DEFAULTS", "RESOLUTIONS", "SAMPLERS", "SCHEDULERS",
+]
+
 # ══════════════════════════════════════════════════════════════ END: config.py

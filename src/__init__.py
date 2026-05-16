@@ -114,4 +114,6 @@ def run_quiet(cmd, desc):
         return False
 
 
+__all__ = ["log", "run_quiet", "__version__"]
+
 # ══════════════════════════════════════════════════════════════ END: __init__.py
