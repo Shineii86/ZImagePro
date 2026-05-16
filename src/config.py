@@ -16,13 +16,40 @@
 # @license MIT
 # ======= • ======= • ======= • ======= • =======• =======
 
+import os
+
 # ══════════════════════════════════════════════════════════════
 # PATHS
 # ══════════════════════════════════════════════════════════════
 
-# ---- FEATURE: Workspace root ----
-# Notebook: ROOT = Path("/content"), COMFY_PATH = ROOT / "ComfyUI"
-WORKSPACE = "/content/ComfyUI"
+# ---- FEATURE: Platform auto-detection ----
+# Detects Colab, Kaggle, or local environment and sets paths accordingly.
+
+def _detect_platform():
+    """
+    Detect the runtime platform and return (root, comfy_path, platform_name).
+
+    @returns {tuple} (root_dir, comfy_dir, platform_str)
+    """
+    import os
+
+    # Google Colab
+    if os.path.exists("/content"):
+        return "/content", "/content/ComfyUI", "colab"
+
+    # Kaggle Notebook
+    if os.path.exists("/kaggle"):
+        return "/kaggle/working", "/kaggle/working/ComfyUI", "kaggle"
+
+    # Local / other
+    root = os.path.dirname(os.path.abspath(__file__))
+    return root, os.path.join(root, "ComfyUI"), "local"
+
+
+_ROOT, WORKSPACE, PLATFORM = _detect_platform()
+
+# Results directory (platform-aware)
+RESULTS_DIR = os.path.join(_ROOT, "results")
 
 # ══════════════════════════════════════════════════════════════
 # MODEL URLS
@@ -106,7 +133,8 @@ SCHEDULERS = [
 # ══════════════════════════════════════════════════════════════
 
 __all__ = [
-    "WORKSPACE", "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
+    "WORKSPACE", "PLATFORM", "RESULTS_DIR",
+    "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
     "MODEL_DIRS", "DEFAULTS", "RESOLUTIONS", "SAMPLERS", "SCHEDULERS",
 ]
 

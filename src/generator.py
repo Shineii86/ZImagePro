@@ -31,7 +31,7 @@ import numpy as np
 from PIL import Image
 
 from . import log
-from .config import WORKSPACE, DEFAULTS
+from .config import WORKSPACE, RESULTS_DIR, DEFAULTS
 
 # ══════════════════════════════════════════════════════════════
 # MODEL LOADER
@@ -167,8 +167,7 @@ def generate_image(
     @returns {tuple} (PIL.Image, save_path)
     """
     if save_dir is None:
-        # Notebook: ROOT = Path("/content"), SAVE_DIR = ROOT / "results"
-        save_dir = os.path.join(os.path.dirname(WORKSPACE), "results")
+        save_dir = RESULTS_DIR
     os.makedirs(save_dir, exist_ok=True)
 
     # Notebook: gen_seed = torch.randint(0, 2**63 - 1, (1,)).item() if seed == -1 else seed

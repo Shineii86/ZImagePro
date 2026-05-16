@@ -5,6 +5,7 @@
 <br/>
 
 [![Open in Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb)
+[![Open in Kaggle](https://img.shields.io/badge/Kaggle_Notebook-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://www.kaggle.com/code)
 
 <br/>
 
@@ -27,7 +28,7 @@
 
 **No setup. No install. No GPU? No problem.**
 
-Open notebook in Google Colab, set runtime to T4, and run — it's that simple.
+Open notebook in [Google Colab](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb) or [Kaggle](https://www.kaggle.com/code), set runtime to T4, and run — it's that simple.
 
 **Tags:** `fp8` `comfyui` `diffusion` `image-generation` `colab-notebook` `text-to-image` `model-quantization` `huggingface` `python`
 
@@ -225,8 +226,9 @@ flowchart TD
 ## 🚀 Quick Start
 
 <div align="center">
-  
+
 [![Open in Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb)
+[![Open in Kaggle](https://img.shields.io/badge/Kaggle_Notebook-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://www.kaggle.com/code)
 
 </div>
 
@@ -235,6 +237,17 @@ flowchart TD
 | 🛠️ | **1. Initialize** | Clone ZImagePro repo, clone ComfyUI, install Python deps, install aria2c, download all models | ~3–5 min |
 | 🚀 | **2. Load & Generate** | Load FP8 weights into VRAM, configure prompt & settings, generate image | ~30 sec |
 | 💾 | **3. Export** | Zip all output PNGs and trigger browser download | ~5 sec |
+
+### 📓 Kaggle Notebook
+
+Prefer Kaggle? Use the [Kaggle notebook](https://www.kaggle.com/code) instead:
+
+1. Copy `notebook/ZImagePro-Kaggle.ipynb` to your Kaggle notebook
+2. In sidebar ⚙️ → **Accelerator** → **GPU T4 x2**
+3. In sidebar ⚙️ → **Internet** → **On**
+4. Run all cells — same workflow, same results
+
+> 💡 **Tip**: Kaggle gives 30 hours/week of free GPU. Great alternative when Colab quota is exhausted.
 
 ### Detailed Cell Breakdown
 
@@ -744,6 +757,9 @@ This project is licensed under **MIT**. You can use, modify, and distribute it f
 | `No images in output` | Generation not started | Wait for Cell 2's "✅ Engine Online" message |
 | `Download failed` | Network timeout or invalid URL | Check URL, re-run Cell 1 |
 | `Colab disconnects` | Idle timeout or session limit | Stay active, or upgrade to Colab Pro |
+| `Colab GPU limit reached` | Free tier quota exhausted | Use [Kaggle notebook](notebook/ZImagePro-Kaggle.ipynb) instead (30h/week free) |
+| `Kaggle: No GPU` | GPU not enabled | Sidebar ⚙️ → Accelerator → GPU T4 x2 |
+| `Kaggle: No Internet` | Internet not enabled | Sidebar ⚙️ → Internet → On |
 | `ImportError: gdown` | gdown not installed | Run `!pip install gdown` in a cell |
 | `FP8 not loading` | GPU doesn't support FP8 | Try a different Colab runtime (T4/A100) |
 

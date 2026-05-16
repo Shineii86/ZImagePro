@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.1.0] - 2026-05-16
+
+### Added
+- `notebook/ZImagePro-Kaggle.ipynb` — Kaggle Notebook variant with Kaggle-specific paths, GPU/Internet setup instructions, and Kaggle sidebar download guidance
+- `src/config.py` — platform auto-detection (`PLATFORM`): detects Colab, Kaggle, or local environment and sets paths accordingly (`WORKSPACE`, `RESULTS_DIR`)
+- README.md — Kaggle badge, Kaggle Quick Start section, Kaggle troubleshooting entries
+- Colab notebook footer — added Kaggle badge link
+
+### Changed
+- `src/config.py` — `WORKSPACE` is now dynamically resolved per platform (`/content/ComfyUI`, `/kaggle/working/ComfyUI`, or local)
+- `src/generator.py` — uses platform-aware `RESULTS_DIR` from config instead of hardcoded `/content/results`
+- `src/exporter.py` — `zip_outputs()` and `download_zip()` now auto-detect platform paths; `download_zip()` shows Kaggle-specific download instructions on Kaggle
+- `src/__init__.py` — version bump to 1.1.0
+
+---
+
 ## [1.0.5] - 2026-05-16
 
 ### Fixed
