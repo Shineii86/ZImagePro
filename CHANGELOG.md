@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.0.2] - 2026-05-16
+
+### Added
+- `GUIDE.md` — comprehensive beginner-friendly user guide (Colab setup, settings, prompting, FAQ)
+- `PROMPT.md` — 8 ready-to-use example prompts with full settings
+- `CONTRIBUTING.md` — contribution guidelines (bugs, features, code style, commit format)
+
+### Changed
+- `src/__init__.py` — now exports shared colored UI logger (`log`) and `run_quiet()` helper matching notebook style
+- All `src/` modules — use shared `log` from `__init__.py` instead of per-module logger classes
+- `src/generator.py` — added notebook-matching colored output (`Booting ComfyUI Backend...`, `Engine Online.`)
+- `src/downloader.py` — uses shared logger for consistent colored output
+- `src/exporter.py` — uses shared logger for consistent colored output
+- `README.md` — updated project structure and What's Included table with new files
+
+---
+
 ## [1.0.1] - 2026-05-16
 
 ### Fixed

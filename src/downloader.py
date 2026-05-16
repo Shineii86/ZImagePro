@@ -8,6 +8,10 @@
 #   Civitai content-disposition URLs. Parallel chunk downloading
 #   with 16 connections per file for maximum throughput.
 #
+#   Matches the notebook's model_map download logic:
+#   - aria2c --console-log-level=error -c -x 16 -s 16 -k 1M
+#   - Supports direct URLs, Google Drive, Civitai
+#
 # @exports
 #   ensure_aria2, download_file, process_downloads
 #
@@ -25,40 +29,21 @@ try:
 except ImportError:
     gdown = None
 
-# ══════════════════════════════════════════════════════════════
-# STRUCTURED LOGGER
-# ══════════════════════════════════════════════════════════════
-
-# ---- FEATURE: Logging ----
-
-class _Log:
-    """Structured logger with ISO timestamps."""
-
-    @staticmethod
-    def info(*args):
-        print("[INFO]", *args)
-
-    @staticmethod
-    def warn(*args):
-        print("[WARN]", *args)
-
-    @staticmethod
-    def error(*args):
-        print("[ERROR]", *args)
-
-
-log = _Log()
+from . import log
 
 # ══════════════════════════════════════════════════════════════
 # ENVIRONMENT SETUP
 # ══════════════════════════════════════════════════════════════
 
 # ---- FEATURE: aria2c installer ----
+# Notebook: run_quiet("apt -y install -qq aria2", "Installing Accelerator (Aria2)")
 
 def ensure_aria2():
     """
     Install aria2c if not already present on the system.
     Called once during initialization to guarantee availability.
+
+    Matches notebook: run_quiet("apt -y install -qq aria2", "Installing Accelerator (Aria2)")
 
     @returns {None}
     """
@@ -84,11 +69,14 @@ def ensure_aria2():
 # ══════════════════════════════════════════════════════════════
 
 # ---- FEATURE: Single file downloader ----
+# Notebook: run_quiet(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M '{url}' -d '{path.parent}' -o '{path.name}'", ...)
 
 def download_file(url, target_dir):
     """
     Download a single file to the target directory.
     Automatically detects Google Drive, Civitai, and direct URLs.
+
+    Matches notebook's aria2c flags: --console-log-level=error -c -x 16 -s 16 -k 1M
 
     @param {str} url — Full download URL
     @param {str} target_dir — Local directory to save into
@@ -111,6 +99,7 @@ def download_file(url, target_dir):
             filename = os.path.basename(parsed.path)
             log.info(f"   📥 Fetching: {filename[:40]}...")
 
+            # Notebook exact flags: aria2c --console-log-level=error -c -x 16 -s 16 -k 1M
             cmd = [
                 "aria2c",
                 "--console-log-level=error",
@@ -131,12 +120,12 @@ def download_file(url, target_dir):
         after = set(os.listdir(target_dir))
         new = after - before
         if new:
-            log.info(f"   ✅ Saved as: \033[96m{list(new)[0]}\033[0m")
+            log.success(f"   Saved as: {list(new)[0]}")
         else:
-            log.info("   ✅ Download complete")
+            log.success("   Download complete")
 
     except Exception as e:
-        log.error(f"   ❌ Failed: {url}\n      Error: {e}\n")
+        log.error(f"   Failed: {url}\n      Error: {e}\n")
 
 
 # ---- FEATURE: Batch download processor ----

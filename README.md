@@ -100,6 +100,9 @@ Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend 
 | **Downloader** | `src/downloader.py` | aria2c/GDrive/Civitai asset fetcher |
 | **Generator** | `src/generator.py` | In-process ComfyUI node loading + image generation |
 | **Exporter** | `src/exporter.py` | Zip and download generated images |
+| **Guide** | `GUIDE.md` | Comprehensive beginner-friendly user guide |
+| **Prompts** | `PROMPT.md` | 8 ready-to-use example prompts with settings |
+| **Contributing** | `CONTRIBUTING.md` | How to contribute (bugs, features, code) |
 | **License** | `LICENSE` | MIT license text |
 | **Changelog** | `CHANGELOG.md` | Version history with dates and descriptions |
 
@@ -110,7 +113,10 @@ Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend 
 ```
 ZImagePro/
 ├── CHANGELOG.md              # Version history (newest first)
+├── CONTRIBUTING.md           # How to contribute (bugs, features, code)
+├── GUIDE.md                  # Comprehensive beginner-friendly user guide
 ├── LICENSE                   # MIT
+├── PROMPT.md                 # 8 example prompts with settings
 ├── README.md                 # This file
 ├── SECURITY.md               # Vulnerability reporting policy
 ├── .gitignore                # Python, Jupyter, model files, OS artifacts
@@ -126,7 +132,7 @@ ZImagePro/
 │   └── ZImagePro.ipynb       # Main Colab notebook (3 code cells + 3 markdown)
 │
 └── src/
-    ├── __init__.py            # Package marker (version string)
+    ├── __init__.py            # Package marker + shared UI logger + run_quiet helper
     ├── config.py              # All constants and default parameters
     ├── downloader.py          # Asset download engine (aria2c, GDrive, Civitai)
     ├── generator.py           # In-process ComfyUI node loader + image generator

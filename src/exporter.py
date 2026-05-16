@@ -8,6 +8,11 @@
 #   when running in Google Colab. Falls back to printing the
 #   local zip path in non-Colab environments.
 #
+#   Matches notebook Cell 3's auto_download logic:
+#     if auto_download:
+#         from google.colab import files
+#         files.download(str(save_path))
+#
 # @exports
 #   zip_outputs, download_zip
 #
@@ -19,29 +24,7 @@
 import os
 import subprocess
 
-# ══════════════════════════════════════════════════════════════
-# STRUCTURED LOGGER
-# ══════════════════════════════════════════════════════════════
-
-# ---- FEATURE: Logging ----
-
-class _Log:
-    """Structured logger with ISO timestamps."""
-
-    @staticmethod
-    def info(*args):
-        print("[INFO]", *args)
-
-    @staticmethod
-    def warn(*args):
-        print("[WARN]", *args)
-
-    @staticmethod
-    def error(*args):
-        print("[ERROR]", *args)
-
-
-log = _Log()
+from . import log
 
 # ══════════════════════════════════════════════════════════════
 # ARCHIVE
@@ -58,7 +41,7 @@ def zip_outputs(
     Creates the zip at the given path using the system zip command.
     Returns None and prints a warning if no images are found.
 
-    @param {str} output_dir — Results output directory
+    @param {str} output_dir — Results output directory (matches notebook's SAVE_DIR)
     @param {str} zip_path — Destination zip file path
     @returns {str|None} Path to the created zip, or None if empty
     """
@@ -73,7 +56,7 @@ def zip_outputs(
         if f.endswith(".png")
     ]
     subprocess.run(["zip", "-j", "-q", zip_path, *png_files], check=True)
-    log.info(f"✅ Zipped to: {zip_path}")
+    log.success(f"Zipped to: {zip_path}")
     return zip_path
 
 
@@ -82,12 +65,15 @@ def zip_outputs(
 # ══════════════════════════════════════════════════════════════
 
 # ---- FEATURE: Colab file download trigger ----
+# Notebook Cell 3: if auto_download: from google.colab import files; files.download(str(save_path))
 
 def download_zip(zip_path="/content/Z_Image_Pro_Artworks.zip"):
     """
     Trigger a browser download of the zip file.
     Uses google.colab.files API when available, otherwise
     prints the local path for manual retrieval.
+
+    Matches notebook: from google.colab import files; files.download(str(save_path))
 
     @param {str} zip_path — Path to the zip file
     @returns {None}
