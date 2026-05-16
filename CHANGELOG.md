@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.4.0] - 2026-05-16
+
+### Added
+- `src/generator.py` — `_validate_sampler()`: validates sampler name against SAMPLERS list with fuzzy-match suggestions
+- `src/generator.py` — `_validate_scheduler()`: validates scheduler name against SCHEDULERS list with fuzzy-match suggestions
+- `src/generator.py` — `_check_models_exist()`: pre-flight check that all 3 model files exist on disk before loading
+- `src/generator.py` — Input validation: empty prompt, out-of-range resolution, out-of-range steps
+- `src/generator.py` — Detailed error handling with fix instructions for: CUDA OOM, missing models, ComfyUI import failure, sampler/scheduler errors, VAE decode failures, save failures
+- `notebook/ZImagePro.ipynb` — Cell 2: sampler dropdown (22 options, sorted by quality)
+- `notebook/ZImagePro.ipynb` — Cell 2: scheduler dropdown (7 options)
+- `notebook/ZImagePro.ipynb` — Cell 2: try/except with styled HTML error display (yellow for warnings, red for errors)
+- `notebook/ZImagePro.ipynb` — Cell 2: shows sampler/scheduler in generation timing output
+
+### Changed
+- `src/generator.py` — `load_models()` now checks model files exist before importing ComfyUI nodes; catches FileNotFoundError, CUDA OOM, and generic exceptions with actionable fix instructions
+- `src/generator.py` — `generate_image()` validates all inputs before generation; catches CUDA OOM, sampler errors, decode errors, and save errors separately with specific fix guidance
+- `notebook/ZImagePro.ipynb` — Step numbers updated to 1/4, 2/4, 3/4, 4/4
+- `src/__init__.py` — version bump to 1.4.0
+
+---
+
 ## [1.3.1] - 2026-05-16
 
 ### Added
