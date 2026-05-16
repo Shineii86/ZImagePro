@@ -26,6 +26,12 @@ import os
 # Notebook: ROOT = Path("/content"), COMFY_PATH = ROOT / "ComfyUI"
 WORKSPACE = "/content/ComfyUI"
 
+# ---- FEATURE: Google Drive cache root ----
+# Models cached here persist across Colab session restarts.
+# On first run: downloads to ComfyUI, then copies to Drive.
+# On subsequent runs: copies from Drive to ComfyUI (skips download).
+DRIVE_CACHE_DIR = "/content/drive/MyDrive/ZImagePro/models"
+
 # ══════════════════════════════════════════════════════════════
 # MODEL URLS
 # ══════════════════════════════════════════════════════════════
@@ -108,7 +114,7 @@ SCHEDULERS = [
 # ══════════════════════════════════════════════════════════════
 
 __all__ = [
-    "WORKSPACE", "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
+    "WORKSPACE", "DRIVE_CACHE_DIR", "UNET_URL", "TEXT_ENCODER_URL", "VAE_URL",
     "MODEL_DIRS", "DEFAULTS", "RESOLUTIONS", "SAMPLERS", "SCHEDULERS",
 ]
 

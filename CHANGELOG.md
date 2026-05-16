@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.3.0] - 2026-05-16
+
+### Added
+- `src/downloader.py` — Google Drive model caching: `mount_drive()`, `_try_load_from_cache()`, `_save_to_cache()` — models persist across Colab restarts, skipping ~7GB downloads on repeat sessions
+- `src/config.py` — `DRIVE_CACHE_DIR` constant (`/content/drive/MyDrive/ZImagePro/models`) for persistent model storage
+- `notebook/ZImagePro.ipynb` — Cell 1 now mounts Google Drive and uses cache-first download strategy
+
+### Changed
+- `src/downloader.py` — `download_file()` now checks Drive cache before downloading and saves to cache after download (skippable via `use_drive_cache=False`)
+- `src/__init__.py` — version bump to 1.3.0
+
+---
+
 ## [1.2.0] - 2026-05-16
 
 ### Removed
