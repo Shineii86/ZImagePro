@@ -40,6 +40,28 @@ from .config import WORKSPACE, DEFAULTS
 # ---- FEATURE: In-process ComfyUI node loading ----
 # Notebook Cell 2: NODE_CLASS_MAPPINGS → 7 nodes → load_unet/load_clip/load_vae
 
+def _check_cuda():
+    """
+    Pre-flight check: verify CUDA-enabled PyTorch is available.
+    Raises a clear, actionable error if CUDA is missing.
+
+    @raises RuntimeError — if PyTorch was not compiled with CUDA support
+    """
+    import torch
+    if not torch.cuda.is_available():
+        raise RuntimeError(
+            "\n"
+            "   ✗ CUDA is not available!\n"
+            "\n"
+            "   PyTorch installed without CUDA support. This usually means:\n"
+            "     1. The Colab runtime is set to CPU — change it to T4:\n"
+            "        Runtime → Change runtime type → T4 GPU\n"
+            "     2. A CPU-only PyTorch was cached — restart runtime and re-run Cell 1\n"
+            "\n"
+            "   Fix: Runtime → Disconnect and delete runtime → Re-run all cells\n"
+        )
+
+
 def load_models(unet_filename="z-image-turbo-fp8-e4m3fn.safetensors"):
     """
     Load UNet, CLIP, and VAE models into VRAM using ComfyUI nodes.
@@ -62,6 +84,8 @@ def load_models(unet_filename="z-image-turbo-fp8-e4m3fn.safetensors"):
     @param {str} unet_filename — UNet model file name
     @returns {tuple} (nodes_dict, unet_model, clip_model, vae_model)
     """
+    _check_cuda()
+
     from nodes import NODE_CLASS_MAPPINGS
 
     log.info("Booting ComfyUI Backend...")

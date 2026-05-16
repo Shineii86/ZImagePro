@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.0.5] - 2026-05-16
+
+### Fixed
+- `src/generator.py` — added `_check_cuda()` pre-flight validation before importing ComfyUI nodes; raises `RuntimeError` with clear fix instructions instead of cryptic `AssertionError: Torch not compiled with CUDA enabled`
+- `notebook/ZImagePro.ipynb` — Cell 1 now detects CUDA availability before dependency install and auto-installs CUDA-enabled PyTorch (`cu121`) if missing, with GPU runtime instructions if detection still fails
+- `requirements.txt` — added `numpy<2` pin to prevent ComfyUI compatibility issues with numpy 2.x
+
+### Changed
+- `src/__init__.py` — version bump to 1.0.5
+
+---
+
 ## [1.0.4] - 2026-05-16
 
 ### Added
