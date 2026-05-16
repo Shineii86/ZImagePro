@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.1.1] - 2026-05-16
+
+### Changed
+- `GUIDE.md` — updated for dual-platform support: added Kaggle setup instructions alongside Colab, platform-specific file paths for both environments, Kaggle troubleshooting entries (No GPU, No Internet, file download location)
+- `src/__init__.py` — version bump to 1.1.1
+
+---
+
 ## [1.1.0] - 2026-05-16
 
 ### Added
