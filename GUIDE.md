@@ -73,17 +73,12 @@ Z-Image Turbo Pro uses FP8, which means you can run it on Google Colab's **free*
 
 ## 💻 What You Need
 
-**Pick one platform — both are free:**
-
-| Platform | Account | GPU | Notes |
-|----------|---------|-----|-------|
-| [**Google Colab**](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb) | Google account | T4 (free) | Daily GPU limits, session timeout |
-| [**Kaggle**](https://www.kaggle.com/code) | Kaggle account | T4 (free) | 30h/week GPU, Internet must be enabled |
-
-**Both platforms need:**
-- A web browser (Chrome, Firefox, Edge, Safari)
-- Internet connection for model downloads (~8 GB total)
-- Patience on first run (~8 minutes). After that, it's fast.
+| Requirement | Details |
+|-------------|---------|
+| **A Google account** | Free — sign up at [accounts.google.com](https://accounts.google.com) |
+| **A web browser** | Chrome, Firefox, Edge, Safari — any modern browser |
+| **Internet connection** | Stable connection for downloading models (~8 GB total) |
+| **Patience (first run)** | First time takes ~8 minutes for downloads. After that, it's fast. |
 
 > ⚠️ **You do NOT need:**
 > - A graphics card on your own computer
@@ -95,9 +90,7 @@ Z-Image Turbo Pro uses FP8, which means you can run it on Google Colab's **free*
 
 ## 🚀 Getting Started
 
-Choose your platform and follow the setup steps below.
-
-### Option A — Google Colab
+### Opening the Notebook
 
 1. **Click this link** (or the "Open in Colab" button in the README):
 
@@ -107,31 +100,14 @@ Choose your platform and follow the setup steps below.
 
 3. You'll see the notebook open in Google Colab. It looks like a document with boxes (cells) of code.
 
-4. **Set up the GPU:**
-   - Click **Runtime** → **Change runtime type**
-   - Under "Hardware accelerator", select **T4 GPU**
-   - Click **Save**
+### Setting Up the GPU
 
-### Option B — Kaggle Notebook
+Before running anything, you need to tell Colab to use a GPU:
 
-1. **Go to Kaggle** and sign in (or create a free account):
-
-   👉 [www.kaggle.com/code](https://www.kaggle.com/code)
-
-2. **Import the notebook:**
-   - Click **New Notebook** (top right)
-   - In the new notebook, click **File** → **Import Notebook**
-   - Paste this URL and click **Import**:
-
-   ```
-   https://raw.githubusercontent.com/Shineii86/ZImagePro/main/notebook/ZImagePro-Kaggle.ipynb
-   ```
-
-3. **Enable GPU and Internet** (both required):
-   - In the right sidebar, click ⚙️ **Settings**
-   - Under **Accelerator**, select **GPU T4 x2**
-   - Under **Internet**, toggle it **On**
-   - Click **OK** to confirm
+1. Click **Runtime** in the top menu bar
+2. Click **Change runtime type**
+3. Under "Hardware accelerator", select **T4 GPU**
+4. Click **Save**
 
 > 💡 **Why do I need a GPU?**
 > A GPU (Graphics Processing Unit) is a special chip that can do many calculations at once. AI image generation requires massive parallel computation — a regular CPU would take 30+ minutes per image, while a GPU does it in seconds.
@@ -439,21 +415,13 @@ oversaturated, cartoon, text, watermark
 | **Generated images** | `/content/results/` | 📁 File browser → content → results |
 | **Downloaded zip** | `/content/Z_Image_Pro_Artworks.zip` | 📁 File browser → content |
 
-**Opening the Colab File Browser:** Click the **📁 folder icon** on the left sidebar.
+### Opening the File Browser
 
-### In Kaggle Notebook
+1. Click the **📁 folder icon** on the left sidebar in Google Colab
+2. Navigate through the folders to find your files
+3. Right-click any file to download it to your computer
 
-| What | Where | How to Find |
-|------|-------|-------------|
-| **Z-Image FP8 model** | `/kaggle/working/ComfyUI/models/diffusion_models/` | Sidebar → Output → Files |
-| **Text Encoder** | `/kaggle/working/ComfyUI/models/clip/` | Sidebar → Output → Files |
-| **VAE** | `/kaggle/working/ComfyUI/models/vae/` | Sidebar → Output → Files |
-| **Generated images** | `/kaggle/working/results/` | Sidebar → Output → Files |
-| **Downloaded zip** | `/kaggle/working/Z_Image_Pro_Artworks.zip` | Sidebar → Output → Files |
-
-**Opening the Kaggle File Browser:** In the right sidebar, click **Data** → **Output** tab.
-
-> ⚠️ **Important:** Both Colab and Kaggle storage is **temporary**. When your session ends, files may be deleted. Always download your generated images using Step 3 before closing!
+> ⚠️ **Important:** Colab storage is **temporary**. When your session ends, all files are deleted. Always download your generated images using Step 3 before closing!
 
 ---
 
@@ -584,38 +552,7 @@ No. Z-Image is an unfiltered model — it does not have built-in NSFW filters. U
 **Fixes:**
 - Stay active — Colab disconnects after ~90 minutes of inactivity
 - If you hit daily limits, wait 24 hours or upgrade to Colab Pro
-- **Or switch to Kaggle** — 30 hours/week of free GPU, different quota
 - Always download your images promptly after generation
-
----
-
-### Kaggle: "No GPU detected"
-
-**What it means:** GPU accelerator is not enabled.
-
-**Fix:**
-1. In the right sidebar, click ⚙️ **Settings**
-2. Under **Accelerator**, select **GPU T4 x2**
-3. Click **OK**
-4. Re-run Cell 1
-
----
-
-### Kaggle: Clone/download fails
-
-**What it means:** Internet access is not enabled.
-
-**Fix:**
-1. In the right sidebar, click ⚙️ **Settings**
-2. Under **Internet**, toggle it **On**
-3. Click **OK**
-4. Re-run Cell 1
-
----
-
-### Kaggle: Where do I download my images?
-
-**Answer:** In the right sidebar → **Output** tab → navigate to `results/` → click the download icon on any file. Or use Step 3 to zip everything first.
 
 ---
 

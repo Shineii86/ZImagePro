@@ -5,7 +5,6 @@
 <br/>
 
 [![Open in Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb)
-[![Open in Kaggle](https://img.shields.io/badge/Kaggle_Notebook-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://www.kaggle.com/code)
 
 <br/>
 
@@ -28,9 +27,9 @@
 
 **No setup. No install. No GPU? No problem.**
 
-Open notebook in [Google Colab](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb) or [Kaggle](https://www.kaggle.com/code), set runtime to T4, and run — it's that simple.
+Open notebook in Google Colab, set runtime to T4, and run — it's that simple.
 
-**Tags:** `fp8` `comfyui` `diffusion` `image-generation` `colab-notebook` `kaggle-notebook` `text-to-image` `model-quantization` `huggingface` `python`
+**Tags:** `fp8` `comfyui` `diffusion` `image-generation` `colab-notebook` `text-to-image` `model-quantization` `huggingface` `python`
 
 </div>
 
@@ -72,10 +71,10 @@ Open notebook in [Google Colab](https://colab.research.google.com/github/Shineii
 
 ## 📖 Overview
 
-Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend and smart caching. Professional-grade image generation on free cloud GPUs — zero setup, zero configuration.
+Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend and smart caching. Professional-grade image generation on free Colab hardware — zero setup, zero configuration.
 
 > [!NOTE]
-> **Why FP8?** FP8 (8-bit floating point) quantization cuts VRAM usage nearly in half compared to full precision while preserving output quality. This enables pro-grade image generation on free T4 GPUs — no paid tier required.
+> **Why FP8?** FP8 (8-bit floating point) quantization cuts VRAM usage nearly in half compared to full precision while preserving output quality. This enables pro-grade image generation on free T4 GPUs — no paid Colab tier required.
 
 > [!WARNING]
 > **Content Safety Notice**: Z-Image is an unfiltered diffusion model. It does not have built-in NSFW filters. Users are solely responsible for the content they generate. Do not use this tool to create illegal, harmful, or non-consensual content. By using this project, you agree to comply with all applicable laws and the [HuggingFace content policy](https://huggingface.co/content-guidelines). The authors assume no liability for misuse.
@@ -84,10 +83,10 @@ Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend 
 
 | Feature | Description |
 |---------|-------------|
-| ⚡ **FP8 Optimized** | Half the VRAM, full quality — runs on free T4 GPU |
+| ⚡ **FP8 Optimized** | Half the VRAM, full quality — runs on free T4 Colab |
 | 💾 **Smart Cache** | Models cached after first run — instant subsequent generations |
 | 🎯 **One-Click** | Zero configuration — just open and run |
-| 🔋 **GPU Ready** | Free T4 on Colab or Kaggle |
+| 🔋 **GPU Ready** | Free Google Colab T4 is sufficient |
 | ⚙️ **ComfyUI Backend** | Node-based pipeline engine — battle-tested and extensible |
 | 🌐 **aria2c Downloader** | 16-connection parallel downloads for fast model fetching |
 | 🔧 **Modular Source** | Clean `src/` package — easy to extend and maintain |
@@ -96,8 +95,7 @@ Z-Image Turbo Pro is a **next-gen FP8 diffusion pipeline** with ComfyUI backend 
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| **Notebook** | `notebook/ZImagePro.ipynb` | 3-cell Colab/Kaggle notebook — the main entry point |
-| **Kaggle Notebook** | `notebook/ZImagePro-Kaggle.ipynb` | Kaggle-specific notebook with GPU/Internet setup |
+| **Notebook** | `notebook/ZImagePro.ipynb` | 3-cell Colab notebook — the main entry point |
 | **Config** | `src/config.py` | Constants, defaults, model URLs, resolution presets |
 | **Downloader** | `src/downloader.py` | aria2c/GDrive/Civitai asset fetcher |
 | **Generator** | `src/generator.py` | In-process ComfyUI node loading + image generation |
@@ -131,15 +129,14 @@ ZImagePro/
 │   └── PULL_REQUEST_TEMPLATE.md # PR checklist
 │
 ├── notebook/
-│   ├── ZImagePro.ipynb        # Colab notebook (3 code cells + 3 markdown)
-│   └── ZImagePro-Kaggle.ipynb # Kaggle notebook (GPU/Internet setup)
+│   └── ZImagePro.ipynb       # Main Colab notebook (3 code cells + 3 markdown)
 │
 └── src/
     ├── __init__.py            # Package marker + shared UI logger + run_quiet helper
     ├── config.py              # All constants and default parameters
     ├── downloader.py          # Asset download engine (aria2c, GDrive, Civitai)
     ├── generator.py           # In-process ComfyUI node loader + image generator
-    └── exporter.py            # Output zip + platform-aware download helper
+    └── exporter.py            # Output zip + Colab download helper
 ```
 
 ---
@@ -230,7 +227,6 @@ flowchart TD
 <div align="center">
 
 [![Open in Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb)
-[![Open in Kaggle](https://img.shields.io/badge/Kaggle_Notebook-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://www.kaggle.com/code)
 
 </div>
 
@@ -426,23 +422,23 @@ sequenceDiagram
 
 | Resource | Minimum | Recommended | Notes |
 |----------|---------|-------------|-------|
-| **GPU** | T4 (16 GB VRAM) | T4 or better | Free on Colab or Kaggle |
+| **GPU** | T4 (16 GB VRAM) | T4 or better | Free on Google Colab |
 | **System RAM** | 12 GB | 16 GB | ComfyUI + model loading |
 | **Disk Space** | ~8 GB (base) | 15 GB | Base models + outputs |
-| **Python** | 3.10+ | 3.10+ | Required for torch/ComfyUI |
+| **Python** | 3.10+ | Colab default | Required for torch/ComfyUI |
 | **Internet** | Required | Stable connection | For model downloads (first run only) |
 
 ### Disk Breakdown
 
 | Component | Size | Cached? |
 |-----------|------|---------|
-| ComfyUI + deps | ~2 GB | Yes (session) |
+| ComfyUI + deps | ~2 GB | Yes (Colab session) |
 | Z-Image FP8 UNet | ~4 GB | Yes |
 | Qwen 3 4B Encoder | ~2.5 GB | Yes |
 | VAE | ~300 MB | Yes |
 | Output (per image) | ~2–5 MB | No |
 
-> 💡 **First run** takes ~5–8 minutes for downloads. Subsequent runs in the same session are much faster thanks to smart caching.
+> 💡 **First run** takes ~5–8 minutes for downloads. Subsequent runs in the same Colab session are much faster thanks to smart caching.
 
 ---
 
@@ -727,7 +723,7 @@ SEED: 5555
 <details>
 <summary><b>Do I need a GPU to use this?</b></summary>
 
-Not locally. The notebook runs on free T4 GPUs via [Google Colab](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb) or [Kaggle](https://www.kaggle.com/code). Just open the notebook and run.
+Not locally. The notebook runs on Google Colab's free T4 GPU. Just open the notebook and run.
 </details>
 
 <details>
@@ -765,11 +761,8 @@ This project is licensed under **MIT**. You can use, modify, and distribute it f
 | `No images in output` | Generation not started | Wait for Cell 2's "✅ Engine Online" message |
 | `Download failed` | Network timeout or invalid URL | Check URL, re-run Cell 1 |
 | `Colab disconnects` | Idle timeout or session limit | Stay active, or upgrade to Colab Pro |
-| `Colab GPU limit reached` | Free tier quota exhausted | Use [Kaggle notebook](notebook/ZImagePro-Kaggle.ipynb) instead (30h/week free) |
-| `Kaggle: No GPU` | GPU not enabled | Sidebar ⚙️ → Accelerator → GPU T4 x2 |
-| `Kaggle: No Internet` | Internet not enabled | Sidebar ⚙️ → Internet → On |
 | `ImportError: gdown` | gdown not installed | Run `!pip install gdown` in a cell |
-| `FP8 not loading` | GPU doesn't support FP8 | Try a different runtime (T4/A100) on Colab or Kaggle |
+| `FP8 not loading` | GPU doesn't support FP8 | Try a different Colab runtime (T4/A100) |
 
 ---
 

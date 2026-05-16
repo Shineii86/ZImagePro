@@ -25,7 +25,6 @@ import os
 import subprocess
 
 from . import log
-from .config import RESULTS_DIR, PLATFORM
 
 # ══════════════════════════════════════════════════════════════
 # ARCHIVE
@@ -34,24 +33,18 @@ from .config import RESULTS_DIR, PLATFORM
 # ---- FEATURE: Zip generated images ----
 
 def zip_outputs(
-    output_dir=None,
-    zip_path=None,
+    output_dir="/content/results",
+    zip_path="/content/Z_Image_Pro_Artworks.zip",
 ):
     """
     Zip all PNG files in the output directory.
     Creates the zip at the given path using the system zip command.
     Returns None and prints a warning if no images are found.
 
-    @param {str} output_dir — Results output directory (auto-detected from platform)
-    @param {str} zip_path — Destination zip file path (auto-detected from platform)
+    @param {str} output_dir — Results output directory (matches notebook's SAVE_DIR)
+    @param {str} zip_path — Destination zip file path
     @returns {str|None} Path to the created zip, or None if empty
     """
-    if output_dir is None:
-        output_dir = RESULTS_DIR
-    if zip_path is None:
-        root = os.path.dirname(RESULTS_DIR)
-        zip_path = os.path.join(root, "Z_Image_Pro_Artworks.zip")
-
     if not os.path.exists(output_dir) or not os.listdir(output_dir):
         log.warn("No images found in the output directory yet!")
         return None
@@ -74,33 +67,23 @@ def zip_outputs(
 # ---- FEATURE: Colab file download trigger ----
 # Notebook Cell 3: if auto_download: from google.colab import files; files.download(str(save_path))
 
-def download_zip(zip_path=None):
+def download_zip(zip_path="/content/Z_Image_Pro_Artworks.zip"):
     """
     Trigger a browser download of the zip file.
-    Auto-detects platform:
-      - Colab: uses google.colab.files API
-      - Kaggle: prints path (download from sidebar)
-      - Local: prints path for manual retrieval
+    Uses google.colab.files API when available, otherwise
+    prints the local path for manual retrieval.
 
-    @param {str} zip_path — Path to the zip file (auto-detected)
+    Matches notebook: from google.colab import files; files.download(str(save_path))
+
+    @param {str} zip_path — Path to the zip file
     @returns {None}
     """
-    if zip_path is None:
-        root = os.path.dirname(RESULTS_DIR)
-        zip_path = os.path.join(root, "Z_Image_Pro_Artworks.zip")
-
-    if PLATFORM == "colab":
-        try:
-            from google.colab import files
-            log.info("📥 Initiating download...")
-            files.download(zip_path)
-        except ImportError:
-            log.warn(f"Zip saved at: {zip_path}")
-    elif PLATFORM == "kaggle":
-        log.info(f"📥 Zip ready: {zip_path}")
-        log.info("   Download from the Kaggle sidebar → Output → Files")
-    else:
-        log.info(f"📥 Zip saved at: {zip_path}")
+    try:
+        from google.colab import files
+        log.info("📥 Initiating download...")
+        files.download(zip_path)
+    except ImportError:
+        log.warn(f"Not running in Colab. Zip saved at: {zip_path}")
 
 
 # ══════════════════════════════════════════════════════════════

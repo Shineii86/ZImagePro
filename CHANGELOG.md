@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.2.0] - 2026-05-16
+
+### Removed
+- `notebook/ZImagePro-Kaggle.ipynb` — removed Kaggle notebook entirely
+- `src/config.py` — removed platform auto-detection (`PLATFORM`, `RESULTS_DIR`), reverted to hardcoded Colab paths
+- `src/generator.py` — reverted to hardcoded `/content/results` save directory
+- `src/exporter.py` — reverted to hardcoded Colab paths and `google.colab` download
+- `README.md` — removed all Kaggle badges, links, sections, and troubleshooting entries
+- `GUIDE.md` — removed Kaggle setup instructions, platform picker, Kaggle file paths, Kaggle troubleshooting
+- `notebook/ZImagePro.ipynb` — removed Kaggle badge from footer
+
+### Changed
+- `src/__init__.py` — version bump to 1.2.0
+
+---
+
 ## [1.1.3] - 2026-05-16
 
 ### Changed
