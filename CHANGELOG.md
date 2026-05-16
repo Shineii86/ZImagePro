@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.1.2] - 2026-05-16
+
+### Changed
+- `README.md` — replaced all Colab-only references with platform-agnostic language (Colab + Kaggle): tags, overview, features table, project structure, resource requirements, FAQ, troubleshooting
+- `src/__init__.py` — version bump to 1.1.2
+
+---
+
 ## [1.1.1] - 2026-05-16
 
 ### Changed
