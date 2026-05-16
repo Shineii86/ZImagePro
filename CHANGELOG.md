@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.1.3] - 2026-05-16
+
+### Changed
+- `README.md` — Kaggle Quick Start now has step-by-step import instructions with raw GitHub URL for File → Import Notebook
+- `GUIDE.md` — Kaggle Getting Started updated with clear 3-step import flow and raw URL
+- `src/__init__.py` — version bump to 1.1.3
+
+---
+
 ## [1.1.2] - 2026-05-16
 
 ### Changed

@@ -114,18 +114,20 @@ Choose your platform and follow the setup steps below.
 
 ### Option B — Kaggle Notebook
 
-1. **Click this link** to create a new Kaggle notebook:
+1. **Go to Kaggle** and sign in (or create a free account):
 
-   👉 [Open ZImagePro in Kaggle](https://www.kaggle.com/code)
+   👉 [www.kaggle.com/code](https://www.kaggle.com/code)
 
-2. **Sign in** with your Kaggle account (or create one free).
+2. **Import the notebook:**
+   - Click **New Notebook** (top right)
+   - In the new notebook, click **File** → **Import Notebook**
+   - Paste this URL and click **Import**:
 
-3. **Import the notebook:**
-   - Click **File** → **Import notebook**
-   - Paste the GitHub URL: `https://github.com/Shineii86/ZImagePro/blob/main/notebook/ZImagePro-Kaggle.ipynb`
-   - Or upload `notebook/ZImagePro-Kaggle.ipynb` directly
+   ```
+   https://raw.githubusercontent.com/Shineii86/ZImagePro/main/notebook/ZImagePro-Kaggle.ipynb
+   ```
 
-4. **Enable GPU and Internet** (both required):
+3. **Enable GPU and Internet** (both required):
    - In the right sidebar, click ⚙️ **Settings**
    - Under **Accelerator**, select **GPU T4 x2**
    - Under **Internet**, toggle it **On**

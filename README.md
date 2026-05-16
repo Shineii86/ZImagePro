@@ -242,12 +242,18 @@ flowchart TD
 
 ### 📓 Kaggle Notebook
 
-Prefer Kaggle? Use the [Kaggle notebook](https://www.kaggle.com/code) instead:
+Prefer Kaggle? Import the notebook:
 
-1. Copy `notebook/ZImagePro-Kaggle.ipynb` to your Kaggle notebook
-2. In sidebar ⚙️ → **Accelerator** → **GPU T4 x2**
-3. In sidebar ⚙️ → **Internet** → **On**
-4. Run all cells — same workflow, same results
+1. Go to [kaggle.com/code](https://www.kaggle.com/code) → **New Notebook**
+2. **File** → **Import Notebook** → paste this URL:
+
+```
+https://raw.githubusercontent.com/Shineii86/ZImagePro/main/notebook/ZImagePro-Kaggle.ipynb
+```
+
+3. Sidebar ⚙️ → **Accelerator** → **GPU T4 x2**
+4. Sidebar ⚙️ → **Internet** → **On**
+5. Run all cells — same workflow, same results
 
 > 💡 **Tip**: Kaggle gives 30 hours/week of free GPU. Great alternative when Colab quota is exhausted.
 
