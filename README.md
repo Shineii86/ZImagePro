@@ -4,7 +4,7 @@
 
 <br/>
 
-[![Open in Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb)
+[![Open in Colab](https://img.shields.io/badge/Google-Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black)](https://colab.research.google.com/github/Shineii86/ZImagePro/blob/main/notebook/ZImagePro.ipynb)
 [![Docs](https://img.shields.io/badge/DOCS-GUIDE-2563eb?style=for-the-badge)](GUIDE.md)
 
 <br/>
