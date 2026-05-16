@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.4.1] - 2026-05-16
+
+### Fixed
+- `src/generator.py` — Fixed `AttributeError: 'torch._C._CudaDeviceProperties' object has no attribute 'total_mem'` in `load_models()` VRAM report; changed `total_mem` to `total_memory` to match current PyTorch API
+
+### Changed
+- `src/__init__.py` — version bump to 1.4.1
+
+---
+
 ## [1.4.0] - 2026-05-16
 
 ### Added
