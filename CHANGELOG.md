@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.0.1] - 2026-05-16
+
+### Fixed
+- `src/generator.py` — seed generation now uses `torch.randint` (matching original notebook) instead of Python `random.randint`
+
+---
+
 ## [1.0.0] - 2026-05-16
 
 ### Added
