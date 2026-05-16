@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=𝗭-𝗜𝗺𝗮𝗴𝗲%20𝗧𝘂𝗿𝗯𝗼%20𝗣𝗿𝗼&fontAlignY=30&fontSize=100&desc=Next-Gen%20FP8%20·%20ComfyUI%20Backend%20·%20Smart%20Caching&descSize=30" />
+<img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=𝗭-𝗜𝗺𝗮𝗴𝗲%20𝗣𝗿𝗼&fontAlignY=30&fontSize=100&desc=Next-Gen%20FP8%20·%20ComfyUI%20Backend%20·%20Smart%20Caching&descSize=30" />
 
 <br/>
 
